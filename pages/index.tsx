@@ -1,3 +1,4 @@
+import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 
 function HomePage() {
@@ -5,6 +6,7 @@ function HomePage() {
     <div className=" bg-slate-200 min-h-screen">
       <Header />
       HomePage
+      <Footer />
     </div>
   );
 }
