@@ -4,5 +4,10 @@
   "description": "Tic Tac Toe online game",
   "main": "index.js",
   "author": "RimidalU",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "next": "^13.4.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
 }
