@@ -3,9 +3,9 @@ import { Header } from "../components/header";
 
 function HomePage() {
   return (
-    <div className=" bg-slate-200 min-h-screen">
+    <div className="max-w-7xl mx-auto min-h-screen flex flex-col justify-between">
       <Header />
-      HomePage
+      <main className="pt-6 max-w-2xl border-2">game</main>
       <Footer />
     </div>
   );
