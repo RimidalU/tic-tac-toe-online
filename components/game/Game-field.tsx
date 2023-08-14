@@ -42,6 +42,11 @@ export function GameField({ className }: HTMLAttributes<string>) {
   const [currentUser, setCurrentUser] = useState(GAME_SYMBOLS.CROSS);
 
   const nextUser = getNextUser(currentUser);
+
+  const handleCellClick = (index: number) => {
+    setCurrentUser((lastCurrentUser) => getNextUser(lastCurrentUser));
+  };
+
   return (
     <GameFieldLayout className={className}>
       <GameHeader
@@ -51,7 +56,11 @@ export function GameField({ className }: HTMLAttributes<string>) {
       />
       <GameGrid>
         {cells.map((cell, index) => {
-          return <GameCell key={index}>{cell}</GameCell>;
+          return (
+            <GameCell key={index} onClick={() => handleCellClick(index)}>
+              {cell}
+            </GameCell>
+          );
         })}
       </GameGrid>
     </GameFieldLayout>
@@ -108,9 +117,18 @@ function GameGrid({ children }: { children: JSX.Element[] }) {
   );
 }
 
-function GameCell({ children }: { children: JSX.Element | string }) {
+function GameCell({
+  children,
+  onClick,
+}: {
+  children: JSX.Element | string;
+  onClick: () => void;
+}) {
   return (
-    <button className="border border-stone-600 hover:bg-red-200 -ml-px -mt-px flex items-center justify-center">
+    <button
+      onClick={onClick}
+      className="border border-stone-600 hover:bg-red-200 -ml-px -mt-px flex items-center justify-center"
+    >
       {children}
     </button>
   );
