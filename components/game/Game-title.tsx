@@ -15,7 +15,7 @@ export function GameTitle() {
         <ArrowLeftIcon />
         To Home
       </Link>
-      <h1 className=" text-5xl font-semibold leading-tight bg-gradient-to-r from-amber-400 via-indigo-600 to-red-500 bg-clip-text text-transparent">
+      <h1 className="text-5xl font-semibold leading-tight inline-block bg-gradient-to-r from-amber-400 via-indigo-600 to-red-500 bg-clip-text text-transparent">
         Tic Tac Toe Online
       </h1>
       <article className="flex items-center gap-4 text-xl font-light text-stone-600">
