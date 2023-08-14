@@ -1,12 +1,11 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, useState } from "react";
 import clsx from "clsx";
 
 import { UiButton } from "../uikit";
 
 import { CrossIcon } from "./icons/cross-icon";
 import { ZeroIcon } from "./icons/zero-icon";
-
-const cells = new Array(19 * 19).fill(null);
+import { GAME_SYMBOLS } from "./constants";
 
 const actions = (
   <>
@@ -19,13 +18,23 @@ const actions = (
   </>
 );
 
+type IStateSymbols = keyof typeof GAME_SYMBOLS | null;
+
+function getInitialState(): IStateSymbols[] {
+  return new Array(19 * 19).fill(null);
+}
+
 export function GameField({ className }: HTMLAttributes<string>) {
+  const [cells, setCells] = useState<Array<IStateSymbols>>(() =>
+    getInitialState(),
+  );
+
   return (
     <GameFieldLayout className={className}>
       <GameHeader actions={actions} />
       <GameGrid>
-        {cells.map((_, index) => {
-          return <GameCell key={index}>{}</GameCell>;
+        {cells.map((cell, index) => {
+          return <GameCell key={index}>{cell}</GameCell>;
         })}
       </GameGrid>
     </GameFieldLayout>
@@ -74,7 +83,7 @@ function GameGrid({ children }: { children: JSX.Element[] }) {
   );
 }
 
-function GameCell({ children }: { children: JSX.Element[] }) {
+function GameCell({ children }: { children: JSX.Element | string }) {
   return (
     <button className="border border-stone-600 hover:bg-red-200 -ml-px -mt-px flex items-center justify-center">
       {children}
