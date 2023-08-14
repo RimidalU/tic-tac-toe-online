@@ -7,7 +7,7 @@ const rubik = Rubik({ subsets: ["latin"] });
 
 function App({ Component, pageProps }) {
   return (
-    <div className={clsx("bg-slate-200", rubik.className)}>
+    <div className={clsx("bg-slate-200 text-indigo-600", rubik.className)}>
       <Component {...pageProps} />
     </div>
   );
