@@ -1,5 +1,5 @@
 import { Footer } from "../components/footer";
-import { GameInfo, GameTitle } from "../components/game";
+import { GameField, GameInfo, GameTitle } from "../components/game";
 import { Header } from "../components/header";
 
 function HomePage() {
@@ -9,6 +9,7 @@ function HomePage() {
       <main className="pt-6 w-[700px] flex-1 mx-auto">
         <GameTitle />
         <GameInfo className="mt-8" />
+        <GameField className="mt-8" />
       </main>
       <Footer />
     </div>
