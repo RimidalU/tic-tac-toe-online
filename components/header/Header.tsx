@@ -1,8 +1,9 @@
 import Image from "next/image";
 
-import logoSrc from "./logo.png";
-import avatarSrc from "./avatar.png";
+import { Profile } from "../profile";
+
 import { ArrowBottomIcon } from "./icons/arrow-bottom-icon";
+import logoSrc from "./logo.png";
 
 export function Header() {
   return (
@@ -13,11 +14,7 @@ export function Header() {
         Play
       </button>
       <button className="ml-auto flex items-center gap-4 text-start hover:text-indigo-400">
-        <Image src={avatarSrc} width={48} height={48} alt="Avatar" />
-        <div>
-          <div className="font-semibold text-xl leading-tight">UserName</div>
-          <div className="text-stone-600">Rating: 1422</div>
-        </div>
+        <Profile />
         <ArrowBottomIcon />
       </button>
     </header>
