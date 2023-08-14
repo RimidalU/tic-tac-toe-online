@@ -1,5 +1,16 @@
 import clsx from "clsx";
 
+/**
+ *
+ * @param {{
+ *   children: string;
+ *   className: string;
+ *   size: "md" | "lg";
+ *   variant: "primary" | "outline";
+ * }} props
+ *
+ */
+
 export function UiButton({
   children,
   className,
