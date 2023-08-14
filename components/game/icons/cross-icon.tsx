@@ -1,6 +1,9 @@
-export function CrossIcon() {
+import { HTMLAttributes } from "react";
+
+export function CrossIcon({ className }: HTMLAttributes<string>) {
   return (
     <svg
+      className={className}
       width="20"
       height="20"
       viewBox="0 0 20 20"

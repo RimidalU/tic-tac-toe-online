@@ -1,6 +1,9 @@
-export function SquareIcon() {
+import { HTMLAttributes } from "react";
+
+export function SquareIcon({ className }: HTMLAttributes<string>) {
   return (
     <svg
+      className={className}
       width="20"
       height="20"
       viewBox="0 0 20 20"
