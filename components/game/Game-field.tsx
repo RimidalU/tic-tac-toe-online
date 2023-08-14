@@ -1,10 +1,9 @@
 import { HTMLAttributes, useState } from "react";
 import clsx from "clsx";
 
+import { GameSymbol } from "./Game-symbol";
 import { UiButton } from "../uikit";
 
-import { CrossIcon } from "./icons/cross-icon";
-import { ZeroIcon } from "./icons/zero-icon";
 import { GAME_SYMBOLS } from "./constants";
 
 const actions = (
@@ -18,20 +17,38 @@ const actions = (
   </>
 );
 
+const MOVE_ORDER = [
+  GAME_SYMBOLS.CROSS,
+  GAME_SYMBOLS.ZERO,
+  GAME_SYMBOLS.SQUARE,
+  GAME_SYMBOLS.TRIANGLE,
+];
+
 type IStateSymbols = keyof typeof GAME_SYMBOLS | null;
 
 function getInitialState(): IStateSymbols[] {
   return new Array(19 * 19).fill(null);
 }
 
+function getNextUser(currentUser) {
+  const nextUserIndex = MOVE_ORDER.indexOf(currentUser) + 1;
+  return MOVE_ORDER[nextUserIndex] ?? MOVE_ORDER[0];
+}
+
 export function GameField({ className }: HTMLAttributes<string>) {
   const [cells, setCells] = useState<Array<IStateSymbols>>(() =>
     getInitialState(),
   );
+  const [currentUser, setCurrentUser] = useState(GAME_SYMBOLS.CROSS);
 
+  const nextUser = getNextUser(currentUser);
   return (
     <GameFieldLayout className={className}>
-      <GameHeader actions={actions} />
+      <GameHeader
+        actions={actions}
+        currentUser={currentUser}
+        nextUser={nextUser}
+      />
       <GameGrid>
         {cells.map((cell, index) => {
           return <GameCell key={index}>{cell}</GameCell>;
@@ -57,17 +74,25 @@ function GameFieldLayout({
   );
 }
 
-function GameHeader({ actions }: { actions: JSX.Element }) {
+function GameHeader({
+  actions,
+  currentUser,
+  nextUser,
+}: {
+  actions: JSX.Element;
+  currentUser: string;
+  nextUser: string;
+}) {
   return (
     <header className="flex items-center">
       <article>
         <div className="flex items-center gap-2 font-semibold text-xl">
           Current User:
-          <ZeroIcon className="w-6 h-6" />
+          <GameSymbol symbol={currentUser} className="w-6 h-6" />
         </div>
         <div className="flex items-center gap-2 text-md font-light text-stone-600">
           Next user:
-          <CrossIcon className="w-3 h-3" />
+          <GameSymbol symbol={nextUser} className="w-3 h-3" />
         </div>
       </article>
       <div className="ml-auto flex items-center gap-3">{actions}</div>
