@@ -8,10 +8,21 @@ import { ZeroIcon } from "./icons/zero-icon";
 
 const cells = new Array(19 * 19).fill(null);
 
+const actions = (
+  <>
+    <UiButton className="" size="md" variant="primary">
+      Dead heat
+    </UiButton>
+    <UiButton className="" size="md" variant="outline">
+      Surrender
+    </UiButton>
+  </>
+);
+
 export function GameField({ className }: HTMLAttributes<string>) {
   return (
     <GameFieldLayout className={className}>
-      <GameHeader />
+      <GameHeader actions={actions} />
       <GameGrid>
         {cells.map((_, index) => {
           return <GameCell key={index}>{}</GameCell>;
@@ -37,7 +48,7 @@ function GameFieldLayout({
   );
 }
 
-function GameHeader() {
+function GameHeader({ actions }: { actions: JSX.Element }) {
   return (
     <header className="flex items-center">
       <article>
@@ -50,14 +61,7 @@ function GameHeader() {
           <CrossIcon className="w-3 h-3" />
         </div>
       </article>
-      <div className="ml-auto flex items-center gap-3">
-        <UiButton className="" size="md" variant="primary">
-          Dead heat
-        </UiButton>
-        <UiButton className="" size="md" variant="outline">
-          Surrender
-        </UiButton>
-      </div>
+      <div className="ml-auto flex items-center gap-3">{actions}</div>
     </header>
   );
 }
