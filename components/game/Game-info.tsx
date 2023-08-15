@@ -49,29 +49,31 @@ export function GameInfo({ className }: { className: string }) {
         "bg-orange-50 shadow-lg px-8 py-4 grid grid-cols-2 gap-3 justify-between",
       )}
     >
-      {players.map((player) => (
-        <UserInfo key={player.id} userInfo={player} />
+      {players.map((player, index) => (
+        <UserInfo key={player.id} userInfo={player} isRight={index % 2 === 1} />
       ))}
     </section>
   );
 }
 
-function UserInfo({ userInfo }) {
+function UserInfo({ userInfo, isRight }) {
   return (
-    <article className="flex items-center gap-1">
-      <div className="relative">
+    <article
+      className={clsx("flex items-center gap-1", isRight && "flex-row-reverse")}
+    >
+      <div className="relative order-">
         <Profile
           name={userInfo.name}
           rating={userInfo.rating}
           avatar={userInfo.avatar}
-          className="w-44"
+          className="w-48"
         />
         <div className="w-8 h-8 rounded-full bg-orange-50 absolute -top-3 -left-3 shadow flex items-center justify-center">
           <GameSymbol symbol={userInfo.symbol} />
         </div>
       </div>
-      <div className="w-px h-8 bg-slate-600 mx-4" />
-      <span className=" font-normal text-3xl text-stone-600">01:00</span>
+      <div className="w-px h-8 bg-slate-600 mx-4 order-" />
+      <span className="font-normal text-3xl text-stone-600 order-">01:00</span>
     </article>
   );
 }
