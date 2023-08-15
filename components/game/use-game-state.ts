@@ -15,13 +15,19 @@ export function useGameState() {
   const nextUser = getNextUser(currentUser);
 
   const handleCellClick = (index: number) => {
-    setGameState((lastGameState) => ({
-      ...lastGameState,
-      currentUser: getNextUser(lastGameState.currentUser),
-      cells: lastGameState.cells.map((cell, i) => {
-        return i === index ? lastGameState.currentUser : cell;
-      }),
-    }));
+    setGameState((lastGameState) => {
+      if (lastGameState.cells[index]) {
+        return lastGameState;
+      }
+
+      return {
+        ...lastGameState,
+        currentUser: getNextUser(lastGameState.currentUser),
+        cells: lastGameState.cells.map((cell, i) => {
+          return i === index ? lastGameState.currentUser : cell;
+        }),
+      };
+    });
   };
 
   return {
