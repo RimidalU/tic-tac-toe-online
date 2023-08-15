@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { GameSymbol } from "./Game-symbol";
 import { UiButton } from "../uikit";
 
-import { GAME_SYMBOLS } from "./constants";
+import { GAME_SYMBOLS, MOVE_ORDER } from "./constants";
 
 const actions = (
   <>
@@ -17,34 +17,27 @@ const actions = (
   </>
 );
 
-const MOVE_ORDER = [
-  GAME_SYMBOLS.CROSS,
-  GAME_SYMBOLS.ZERO,
-  GAME_SYMBOLS.SQUARE,
-  GAME_SYMBOLS.TRIANGLE,
-];
-
-type IStateSymbols = keyof typeof GAME_SYMBOLS | null;
-
-function getInitialState(): IStateSymbols[] {
-  return new Array(19 * 19).fill(null);
-}
-
 function getNextUser(currentUser) {
   const nextUserIndex = MOVE_ORDER.indexOf(currentUser) + 1;
   return MOVE_ORDER[nextUserIndex] ?? MOVE_ORDER[0];
 }
 
 export function GameField({ className }: HTMLAttributes<string>) {
-  const [cells, setCells] = useState<Array<IStateSymbols>>(() =>
-    getInitialState(),
-  );
-  const [currentUser, setCurrentUser] = useState(GAME_SYMBOLS.CROSS);
+  const [{ cells, currentUser }, setGameState] = useState(() => ({
+    cells: new Array(19 * 19).fill(null),
+    currentUser: GAME_SYMBOLS.CROSS,
+  }));
 
   const nextUser = getNextUser(currentUser);
 
   const handleCellClick = (index: number) => {
-    setCurrentUser((lastCurrentUser) => getNextUser(lastCurrentUser));
+    setGameState((lastGameState) => ({
+      ...lastGameState,
+      currentUser: getNextUser(lastGameState.currentUser),
+      cells: lastGameState.cells.map((cell, i) => {
+        return i === index ? lastGameState.currentUser : cell;
+      }),
+    }));
   };
 
   return (
@@ -58,7 +51,7 @@ export function GameField({ className }: HTMLAttributes<string>) {
         {cells.map((cell, index) => {
           return (
             <GameCell key={index} onClick={() => handleCellClick(index)}>
-              {cell}
+              {cell && <GameSymbol symbol={cell} className="" />}
             </GameCell>
           );
         })}
