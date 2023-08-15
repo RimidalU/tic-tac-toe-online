@@ -5,7 +5,7 @@ import { TimerIcon } from "./icons/timer-icon";
 import { StarIcon } from "./icons/star-icon";
 import { UserIcon } from "./icons/user-icon";
 
-export function GameTitle() {
+export function GameTitle({usersCount}:{usersCount: number}) {
   return (
     <section className="pl-2">
       <Link
@@ -21,7 +21,7 @@ export function GameTitle() {
       <article className="flex items-center gap-4 text-xl font-light text-stone-600">
         <StarIcon />
         <div className="flex items-center gap-2">
-          <UserIcon />2
+          <UserIcon />{usersCount}
         </div>
         <div className="flex items-center gap-2">
           <TimerIcon /> 1 minute per turn

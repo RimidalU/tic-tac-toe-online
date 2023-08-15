@@ -27,21 +27,28 @@ const players = [
     name: "Dog",
     rating: 1743,
     avatar: Avatar3Icon,
-    symbol: GAME_SYMBOLS.TRIANGLE,
+    symbol: GAME_SYMBOLS.SQUARE,
   },
   {
     id: 4,
     name: "Yoda",
     rating: 273,
     avatar: Avatar4Icon,
-    symbol: GAME_SYMBOLS.SQUARE,
+    symbol: GAME_SYMBOLS.TRIANGLE,
   },
 ];
 
 import { GameSymbol } from "./Game-symbol";
 import { GAME_SYMBOLS } from "./constants";
 
-export function GameInfo({ className }: { className: string }) {
+export function GameInfo({
+  className,
+  usersCount,
+}: {
+  className: string;
+  usersCount: number;
+}) {
+  const playersInGame = players.slice(0, usersCount);
   return (
     <section
       className={clsx(
@@ -49,7 +56,7 @@ export function GameInfo({ className }: { className: string }) {
         "bg-orange-50 shadow-lg px-8 py-4 grid grid-cols-2 gap-3 justify-between",
       )}
     >
-      {players.map((player, index) => (
+      {playersInGame.map((player, index) => (
         <UserInfo key={player.id} userInfo={player} isRight={index % 2 === 1} />
       ))}
     </section>

@@ -15,8 +15,14 @@ const actions = (
   </>
 );
 
-export function GameField({ className }: { className: string }) {
-  const { cells, currentUser, nextUser, handleCellClick } = useGameState();
+export function GameField({
+  className,
+  usersCount,
+}: {
+  className: string;
+  usersCount: number;
+}) {
+  const { cells, currentUser, nextUser, handleCellClick } = useGameState(usersCount);
 
   return (
     <GameFieldLayout className={className}>
