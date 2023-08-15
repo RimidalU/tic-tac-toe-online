@@ -4,7 +4,7 @@ import clsx from "clsx";
  *
  * @param {{
  *   children: string;
- *   className: string;
+ *   className?: string;
  *   size: "md" | "lg";
  *   variant: "primary" | "outline";
  * }} props
@@ -18,7 +18,7 @@ export function UiButton({
   variant,
 }: {
   children: string;
-  className: string;
+  className?: string;
   size: "md" | "lg";
   variant: "primary" | "outline";
 }) {

@@ -10,7 +10,7 @@ export function GameSymbol({
   className,
 }: {
   symbol: string;
-  className: string;
+  className?: string;
 }) {
   const Icon =
     {

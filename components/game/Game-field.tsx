@@ -1,4 +1,3 @@
-import { HTMLAttributes } from "react";
 import clsx from "clsx";
 
 import { useGameState } from "./use-game-state";
@@ -7,16 +6,16 @@ import { UiButton } from "../uikit";
 
 const actions = (
   <>
-    <UiButton className="" size="md" variant="primary">
+    <UiButton size="md" variant="primary">
       Dead heat
     </UiButton>
-    <UiButton className="" size="md" variant="outline">
+    <UiButton size="md" variant="outline">
       Surrender
     </UiButton>
   </>
 );
 
-export function GameField({ className }: HTMLAttributes<string>) {
+export function GameField({ className }: { className: string }) {
   const { cells, currentUser, nextUser, handleCellClick } = useGameState();
 
   return (
@@ -30,7 +29,7 @@ export function GameField({ className }: HTMLAttributes<string>) {
         {cells.map((cell, index) => {
           return (
             <GameCell key={index} onClick={() => handleCellClick(index)}>
-              {cell && <GameSymbol symbol={cell} className="" />}
+              {cell && <GameSymbol symbol={cell} />}
             </GameCell>
           );
         })}
