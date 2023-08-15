@@ -1,10 +1,9 @@
-import { HTMLAttributes, useState } from "react";
+import { HTMLAttributes } from "react";
 import clsx from "clsx";
 
+import { useGameState } from "./use-game-state";
 import { GameSymbol } from "./Game-symbol";
 import { UiButton } from "../uikit";
-
-import { GAME_SYMBOLS, MOVE_ORDER } from "./constants";
 
 const actions = (
   <>
@@ -17,28 +16,8 @@ const actions = (
   </>
 );
 
-function getNextUser(currentUser) {
-  const nextUserIndex = MOVE_ORDER.indexOf(currentUser) + 1;
-  return MOVE_ORDER[nextUserIndex] ?? MOVE_ORDER[0];
-}
-
 export function GameField({ className }: HTMLAttributes<string>) {
-  const [{ cells, currentUser }, setGameState] = useState(() => ({
-    cells: new Array(19 * 19).fill(null),
-    currentUser: GAME_SYMBOLS.CROSS,
-  }));
-
-  const nextUser = getNextUser(currentUser);
-
-  const handleCellClick = (index: number) => {
-    setGameState((lastGameState) => ({
-      ...lastGameState,
-      currentUser: getNextUser(lastGameState.currentUser),
-      cells: lastGameState.cells.map((cell, i) => {
-        return i === index ? lastGameState.currentUser : cell;
-      }),
-    }));
-  };
+  const { cells, currentUser, nextUser, handleCellClick } = useGameState();
 
   return (
     <GameFieldLayout className={className}>
