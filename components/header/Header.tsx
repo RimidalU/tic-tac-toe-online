@@ -1,10 +1,11 @@
 import Image from "next/image";
 
 import { Profile } from "../profile";
+import { UiButton } from "../uikit";
 
 import { ArrowBottomIcon } from "./icons/arrow-bottom-icon";
+import userAvatarSrc from "../game/images/avatar-2.png";
 import logoSrc from "./logo.png";
-import { UiButton } from "../uikit";
 
 export function Header() {
   return (
@@ -15,7 +16,7 @@ export function Header() {
         Play
       </UiButton>
       <button className="ml-auto flex items-center gap-4 text-start hover:text-indigo-400">
-        <Profile />
+        <Profile avatar={userAvatarSrc} name="Harley Quinn" rating="5789" />
         <ArrowBottomIcon />
       </button>
     </header>

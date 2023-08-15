@@ -1,64 +1,77 @@
-import { HTMLAttributes } from "react";
 import clsx from "clsx";
 
 import { Profile } from "../profile";
 
-import { CrossIcon } from "./icons/cross-icon";
-import { ZeroIcon } from "./icons/zero-icon";
-import { SquareIcon } from "./icons/square-icon";
-import { TriangleIcon } from "./icons/triangle-icon";
+import Avatar1Icon from "./images/avatar-1.png";
+import Avatar2Icon from "./images/avatar-2.png";
+import Avatar3Icon from "./images/avatar-3.png";
+import Avatar4Icon from "./images/avatar-4.png";
 
-export function GameInfo({ className }: HTMLAttributes<string>) {
+const players = [
+  {
+    id: 1,
+    name: "Red Bull",
+    rating: 1243,
+    avatar: Avatar1Icon,
+    symbol: GAME_SYMBOLS.CROSS,
+  },
+  {
+    id: 2,
+    name: "Harley Quinn",
+    rating: 2345,
+    avatar: Avatar2Icon,
+    symbol: GAME_SYMBOLS.ZERO,
+  },
+  {
+    id: 3,
+    name: "Dog",
+    rating: 1743,
+    avatar: Avatar3Icon,
+    symbol: GAME_SYMBOLS.TRIANGLE,
+  },
+  {
+    id: 4,
+    name: "Yoda",
+    rating: 273,
+    avatar: Avatar4Icon,
+    symbol: GAME_SYMBOLS.SQUARE,
+  },
+];
+
+import { GameSymbol } from "./Game-symbol";
+import { GAME_SYMBOLS } from "./constants";
+
+export function GameInfo({ className }: { className: string }) {
   return (
     <section
       className={clsx(
         className,
-        "bg-orange-50 shadow-lg px-8 py-4 flex flex-wrap gap-10 justify-between",
+        "bg-orange-50 shadow-lg px-8 py-4 grid grid-cols-2 gap-3 justify-between",
       )}
     >
-      <article className="flex items-center gap-1">
-        <div className="relative">
-          <Profile className="w-44" />
-          <div className="w-8 h-8 rounded-full bg-orange-50 absolute -top-3 -left-3 shadow flex items-center justify-center">
-            <CrossIcon />
-          </div>
-        </div>
-        <div className="w-px h-8 bg-slate-600 mx-4" />
-        <span className=" font-normal text-3xl text-stone-600">01:00</span>
-      </article>
-
-      <article className="flex flex-row-reverse items-center gap-1 text-amber-400">
-        <div className="relative">
-          <Profile className="w-44" />
-          <div className="w-8 h-8 rounded-full bg-orange-50 absolute -top-3 -left-3 shadow flex items-center justify-center">
-            <ZeroIcon />
-          </div>
-        </div>
-        <div className="w-px h-8 bg-slate-600 mx-4" />
-        <span className=" font-normal text-3xl text-stone-600">01:00</span>
-      </article>
-
-      <article className="flex items-center gap-1 text-lime-400">
-        <div className="relative">
-          <Profile className="w-44" />
-          <div className="w-8 h-8 rounded-full bg-orange-50 absolute -top-3 -left-3 shadow flex items-center justify-center">
-            <SquareIcon />
-          </div>
-        </div>
-        <div className="w-px h-8 bg-slate-600 mx-4" />
-        <span className=" font-normal text-3xl text-stone-600">01:00</span>
-      </article>
-
-      <article className="flex flex-row-reverse items-center gap-1 text-pink-600">
-        <div className="relative">
-          <Profile className="w-44" />
-          <div className="w-8 h-8 rounded-full bg-orange-50 absolute -top-3 -left-3 shadow flex items-center justify-center">
-            <TriangleIcon />
-          </div>
-        </div>
-        <div className="w-px h-8 bg-slate-600 mx-4" />
-        <span className=" font-normal text-3xl text-stone-600">01:00</span>
-      </article>
+      {players.map((player) => (
+        <UserInfo key={player.id} userInfo={player} />
+      ))}
     </section>
+  );
+}
+
+function UserInfo({ userInfo }) {
+  return (
+    <article className="flex items-center gap-1">
+      <div className="relative">
+        <Profile
+          name={userInfo.name}
+          rating={userInfo.rating}
+          avatar={userInfo.avatar}
+          className="w-44"
+        />
+        <div className="w-8 h-8 rounded-full bg-orange-50 absolute -top-3 -left-3 shadow flex items-center justify-center">
+          <GameSymbol symbol={userInfo.symbol} />
+        </div>
+      </div>
+      <div className="w-px h-8 bg-slate-600 mx-4" />
+      <span className=" font-normal text-3xl text-stone-600">01:00</span>
+    </article>
   );
 }
