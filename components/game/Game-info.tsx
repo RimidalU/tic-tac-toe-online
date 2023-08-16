@@ -73,12 +73,12 @@ function UserInfo({ userInfo, isRight }) {
   );
 
   const secondsInTimer = String(secondsPerTarn % 60).padStart(2, "0");
-
+  const isDanger = secondsPerTarn < 10;
   return (
     <article
       className={clsx("flex items-center gap-1", isRight && "flex-row-reverse")}
     >
-      <div className="relative order-">
+      <div className="relative">
         <Profile
           name={userInfo.name}
           rating={userInfo.rating}
@@ -89,8 +89,13 @@ function UserInfo({ userInfo, isRight }) {
           <GameSymbol symbol={userInfo.symbol} />
         </div>
       </div>
-      <div className="w-px h-8 bg-slate-600 mx-4 order-" />
-      <span className="font-normal text-3xl text-stone-600 order-">
+      <div className="w-px h-8 bg-slate-600 mx-4" />
+      <span
+        className={clsx(
+          "font-normal text-3xl",
+          isDanger ? "text-red-500" : "text-stone-600",
+        )}
+      >
         {minutesInTimer}:{secondsInTimer}
       </span>
     </article>
