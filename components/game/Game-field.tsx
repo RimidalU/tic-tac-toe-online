@@ -1,6 +1,5 @@
 import clsx from "clsx";
 
-import { useGameState } from "./use-game-state";
 import { GameSymbol } from "./Game-symbol";
 import { UiButton } from "../uikit";
 
@@ -17,13 +16,17 @@ const actions = (
 
 export function GameField({
   className,
-  usersCount,
+  cells,
+  currentUser,
+  nextUser,
+  handleCellClick,
 }: {
   className: string;
-  usersCount: number;
+  cells: any[];
+  currentUser: string;
+  nextUser: string;
+  handleCellClick: (index: number) => void;
 }) {
-  const { cells, currentUser, nextUser, handleCellClick } = useGameState(usersCount);
-
   return (
     <GameFieldLayout className={className}>
       <GameHeader

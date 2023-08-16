@@ -1,11 +1,15 @@
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 
+import { GameSymbol } from "./Game-symbol";
 import { Profile } from "../profile";
 
 import Avatar1Icon from "./images/avatar-1.png";
 import Avatar2Icon from "./images/avatar-2.png";
 import Avatar3Icon from "./images/avatar-3.png";
 import Avatar4Icon from "./images/avatar-4.png";
+import { GAME_SYMBOLS } from "./constants";
+import { IUser } from "./types";
 
 const players = [
   {
@@ -38,16 +42,14 @@ const players = [
   },
 ];
 
-import { GameSymbol } from "./Game-symbol";
-import { GAME_SYMBOLS } from "./constants";
-import { useEffect, useState } from "react";
-
 export function GameInfo({
   className,
   usersCount,
+  currentUser,
 }: {
   className: string;
   usersCount: number;
+  currentUser: string;
 }) {
   const playersInGame = players.slice(0, usersCount);
   return (
@@ -58,14 +60,27 @@ export function GameInfo({
       )}
     >
       {playersInGame.map((player, index) => (
-        <UserInfo key={player.id} userInfo={player} isRight={index % 2 === 1} />
+        <UserInfo
+          key={player.id}
+          userInfo={player}
+          isRight={index % 2 === 1}
+          isTimerRunning={currentUser === player.symbol}
+        />
       ))}
     </section>
   );
 }
 
-function UserInfo({ userInfo, isRight }) {
-  const [secondsPerTarn, setSecondsPerTarn] = useState(11);
+function UserInfo({
+  userInfo,
+  isRight,
+  isTimerRunning,
+}: {
+  userInfo: IUser;
+  isRight: boolean;
+  isTimerRunning: boolean;
+}) {
+  const [secondsPerTarn, setSecondsPerTarn] = useState(61);
 
   const minutesInTimer = String(Math.floor(secondsPerTarn / 60)).padStart(
     2,
@@ -76,10 +91,15 @@ function UserInfo({ userInfo, isRight }) {
   const isDanger = secondsPerTarn < 10;
 
   useEffect(() => {
-    setInterval(() => {
-      setSecondsPerTarn((lastState) => Math.max(lastState - 1, 0));
-    }, 1000);
-  }, []);
+    if (isTimerRunning) {
+      const timer = setInterval(() => {
+        setSecondsPerTarn((lastState) => Math.max(lastState - 1, 0));
+      }, 1000);
+      return () => {
+        clearInterval(timer);
+      };
+    }
+  }, [isTimerRunning]);
 
   return (
     <article
@@ -99,8 +119,9 @@ function UserInfo({ userInfo, isRight }) {
       <div className="w-px h-8 bg-slate-600 mx-4" />
       <span
         className={clsx(
-          "font-normal text-3xl",
+          "font-normal text-3xl w-[85px]",
           isDanger ? "text-red-500" : "text-stone-600",
+          isTimerRunning ? "opacity-100" : "opacity-40",
         )}
       >
         {minutesInTimer}:{secondsInTimer}
