@@ -45,8 +45,6 @@ export function checkWinner(
       const winnerIndexes = indexRows.find((row) => compareElements(row));
 
       if (winnerIndexes) {
-        console.log(winnerIndexes);
-
         return winnerIndexes;
       }
     }

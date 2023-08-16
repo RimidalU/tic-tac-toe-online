@@ -19,12 +19,14 @@ export function GameField({
   cells,
   currentUser,
   nextUser,
+  winnerSequence,
   handleCellClick,
 }: {
   className: string;
   cells: any[];
   currentUser: string;
   nextUser: string;
+  winnerSequence: number[];
   handleCellClick: (index: number) => void;
 }) {
   return (
@@ -37,7 +39,11 @@ export function GameField({
       <GameGrid>
         {cells.map((cell, index) => {
           return (
-            <GameCell key={index} onClick={() => handleCellClick(index)}>
+            <GameCell
+              key={index}
+              isWinner={winnerSequence?.includes(index)}
+              onClick={() => handleCellClick(index)}
+            >
               {cell && <GameSymbol symbol={cell} />}
             </GameCell>
           );
@@ -99,15 +105,20 @@ function GameGrid({ children }: { children: JSX.Element[] }) {
 
 function GameCell({
   children,
+  isWinner,
   onClick,
 }: {
   children: JSX.Element | string;
+  isWinner: boolean;
   onClick: () => void;
 }) {
   return (
     <button
       onClick={onClick}
-      className="border border-stone-600 hover:bg-red-200 -ml-px -mt-px flex items-center justify-center"
+      className={clsx(
+        "border border-stone-600 hover:bg-red-200 -ml-px -mt-px flex items-center justify-center",
+        isWinner && "bg-red-500/50",
+      )}
     >
       {children}
     </button>

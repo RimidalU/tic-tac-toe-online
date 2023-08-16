@@ -11,7 +11,7 @@ import { Footer } from "../components/footer";
 
 function HomePage() {
   const [usersCount, _] = useState(4);
-  const { cells, currentUser, nextUser, handleCellClick } =
+  const { cells, currentUser, nextUser, winnerSequence, handleCellClick } =
     useGameState(usersCount);
 
   return (
@@ -28,6 +28,7 @@ function HomePage() {
           cells={cells}
           currentUser={currentUser}
           nextUser={nextUser}
+          winnerSequence={winnerSequence}
           handleCellClick={handleCellClick}
           className="mt-4"
         />
