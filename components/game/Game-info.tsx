@@ -70,6 +70,7 @@ export function GameInfo({
     </section>
   );
 }
+const initialTimerState = 60;
 
 function UserInfo({
   userInfo,
@@ -80,7 +81,7 @@ function UserInfo({
   isRight: boolean;
   isTimerRunning: boolean;
 }) {
-  const [secondsPerTarn, setSecondsPerTarn] = useState(61);
+  const [secondsPerTarn, setSecondsPerTarn] = useState(initialTimerState);
 
   const minutesInTimer = String(Math.floor(secondsPerTarn / 60)).padStart(
     2,
@@ -97,6 +98,7 @@ function UserInfo({
       }, 1000);
       return () => {
         clearInterval(timer);
+        setSecondsPerTarn(initialTimerState);
       };
     }
   }, [isTimerRunning]);
