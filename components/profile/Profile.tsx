@@ -11,7 +11,7 @@ export function Profile({
 }: {
   className?: string;
   name: string;
-  rating: string;
+  rating: number;
   avatar: StaticImageData | string;
 }) {
   return (
