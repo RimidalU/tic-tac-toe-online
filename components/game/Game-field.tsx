@@ -40,6 +40,7 @@ export function GameField({
         {cells.map((cell, index) => {
           return (
             <GameCell
+              disabled={!!winnerSequence}
               key={index}
               isWinner={winnerSequence?.includes(index)}
               onClick={() => handleCellClick(index)}
@@ -106,14 +107,17 @@ function GameGrid({ children }: { children: JSX.Element[] }) {
 function GameCell({
   children,
   isWinner,
+  disabled,
   onClick,
 }: {
   children: JSX.Element | string;
   isWinner: boolean;
+  disabled: boolean;
   onClick: () => void;
 }) {
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
       className={clsx(
         "border border-stone-600 hover:bg-red-200 -ml-px -mt-px flex items-center justify-center",
