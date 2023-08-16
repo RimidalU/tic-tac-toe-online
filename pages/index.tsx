@@ -22,6 +22,7 @@ function HomePage() {
         <GameInfo
           usersCount={usersCount}
           currentUser={currentUser}
+          isWinner={!!winnerSequence}
           className="mt-4"
         />
         <GameField

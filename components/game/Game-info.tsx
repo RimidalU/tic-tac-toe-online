@@ -46,10 +46,12 @@ export function GameInfo({
   className,
   usersCount,
   currentUser,
+  isWinner,
 }: {
   className: string;
   usersCount: number;
   currentUser: string;
+  isWinner: boolean;
 }) {
   const playersInGame = players.slice(0, usersCount);
   return (
@@ -64,7 +66,7 @@ export function GameInfo({
           key={player.id}
           userInfo={player}
           isRight={index % 2 === 1}
-          isTimerRunning={currentUser === player.symbol}
+          isTimerRunning={currentUser === player.symbol && !isWinner}
         />
       ))}
     </section>
