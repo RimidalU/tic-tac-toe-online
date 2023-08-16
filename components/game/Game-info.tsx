@@ -40,7 +40,7 @@ const players = [
 
 import { GameSymbol } from "./Game-symbol";
 import { GAME_SYMBOLS } from "./constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function GameInfo({
   className,
@@ -65,7 +65,7 @@ export function GameInfo({
 }
 
 function UserInfo({ userInfo, isRight }) {
-  const [secondsPerTarn, setSecondsPerTarn] = useState(61);
+  const [secondsPerTarn, setSecondsPerTarn] = useState(11);
 
   const minutesInTimer = String(Math.floor(secondsPerTarn / 60)).padStart(
     2,
@@ -74,6 +74,13 @@ function UserInfo({ userInfo, isRight }) {
 
   const secondsInTimer = String(secondsPerTarn % 60).padStart(2, "0");
   const isDanger = secondsPerTarn < 10;
+
+  useEffect(() => {
+    setInterval(() => {
+      setSecondsPerTarn((lastState) => Math.max(lastState - 1, 0));
+    }, 1000);
+  }, []);
+
   return (
     <article
       className={clsx("flex items-center gap-1", isRight && "flex-row-reverse")}
