@@ -24,17 +24,29 @@ export function checkWinner(
   function getSequenceIndexes(index: number) {
     const res = [
       [], // -
-      [], // |
-      [], //  /
       [], // \
+      [], // |
+      [], // /
     ];
 
     for (let j = 0; j < sequenceSize; j++) {
       res[0].push(j + index);
-      res[1].push(boardSize * j + index);
-      res[2].push(boardSize * j - j + index);
-      res[3].push(boardSize * j + j + index);
+      res[1].push(boardSize * j + j + index);
+      res[2].push(boardSize * j + index);
+      res[3].push(boardSize * j - j + index);
     }
+
+    const i = index % boardSize;
+
+    if (i > boardSize - sequenceSize) {
+      res.shift();
+      res.shift();
+    }
+
+    if (i < sequenceSize - 1) {
+      res.pop();
+    }
+
     return res;
   }
 
