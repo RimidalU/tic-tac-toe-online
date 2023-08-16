@@ -40,6 +40,7 @@ const players = [
 
 import { GameSymbol } from "./Game-symbol";
 import { GAME_SYMBOLS } from "./constants";
+import { useState } from "react";
 
 export function GameInfo({
   className,
@@ -64,6 +65,15 @@ export function GameInfo({
 }
 
 function UserInfo({ userInfo, isRight }) {
+  const [secondsPerTarn, setSecondsPerTarn] = useState(61);
+
+  const minutesInTimer = String(Math.floor(secondsPerTarn / 60)).padStart(
+    2,
+    "0",
+  );
+
+  const secondsInTimer = String(secondsPerTarn % 60).padStart(2, "0");
+
   return (
     <article
       className={clsx("flex items-center gap-1", isRight && "flex-row-reverse")}
@@ -80,7 +90,9 @@ function UserInfo({ userInfo, isRight }) {
         </div>
       </div>
       <div className="w-px h-8 bg-slate-600 mx-4 order-" />
-      <span className="font-normal text-3xl text-stone-600 order-">01:00</span>
+      <span className="font-normal text-3xl text-stone-600 order-">
+        {minutesInTimer}:{secondsInTimer}
+      </span>
     </article>
   );
 }
