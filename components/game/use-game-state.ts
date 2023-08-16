@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { GAME_SYMBOLS, MOVE_ORDER } from "./constants";
+import { GAME_SYMBOLS } from "./constants";
+import { checkWinner, getNextUser } from "./model";
 
-function getNextUser(currentUser: string, usersCount: number) {
-  const moveOrdersInGame = MOVE_ORDER.slice(0, usersCount);
-
-  const nextUserIndex = moveOrdersInGame.indexOf(currentUser) + 1;
-  return moveOrdersInGame[nextUserIndex] ?? moveOrdersInGame[0];
-}
+const boardSize = 19;
+const sequenceSize = 5;
 
 export function useGameState(usersCount: number) {
   const [{ cells, currentUser }, setGameState] = useState(() => ({
@@ -15,6 +12,8 @@ export function useGameState(usersCount: number) {
   }));
 
   const nextUser = getNextUser(currentUser, usersCount);
+
+  checkWinner(cells, boardSize, sequenceSize);
 
   const handleCellClick = (index: number) => {
     setGameState((lastGameState) => {
