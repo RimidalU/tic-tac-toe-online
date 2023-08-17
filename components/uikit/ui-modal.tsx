@@ -21,7 +21,7 @@ export function UiModal({
   className?: string;
 }) {
   return (
-    <div className="fixed inset-0 bg-slate-600/60 backdrop-blur-sm py-10">
+    <div className="fixed inset-0 bg-slate-600/60 backdrop-blur-sm py-10 overflow-y-auto">
       <div
         className={clsx(
           "bg-orange-50 rounded-lg min-h-[320px] mx-auto relative",
