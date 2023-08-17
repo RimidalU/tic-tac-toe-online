@@ -6,12 +6,15 @@ const boardSize = 19;
 const sequenceSize = 5;
 
 export function useGameState(usersCount: number) {
-  const [{ cells, currentUser }, setGameState] = useState(() => ({
-    cells: new Array(19 * 19).fill(null),
-    currentUser: GAME_SYMBOLS.CROSS,
-  }));
+  const [{ cells, currentUser, usersTimeOver }, setGameState] = useState(
+    () => ({
+      cells: new Array(19 * 19).fill(null),
+      usersTimeOver: [],
+      currentUser: GAME_SYMBOLS.CROSS,
+    }),
+  );
 
-  const nextUser = getNextUser(currentUser, usersCount);
+  const nextUser = getNextUser(currentUser, usersCount, usersTimeOver);
 
   const winnerSequence = checkWinner(cells, boardSize, sequenceSize);
 
@@ -23,10 +26,29 @@ export function useGameState(usersCount: number) {
 
       return {
         ...lastGameState,
-        currentUser: getNextUser(lastGameState.currentUser, usersCount),
+        currentUser: getNextUser(
+          lastGameState.currentUser,
+          usersCount,
+          usersTimeOver,
+        ),
         cells: lastGameState.cells.map((cell, i) => {
           return i === index ? lastGameState.currentUser : cell;
         }),
+      };
+    });
+  };
+
+  const handleUserTimeOver = (symbol: string) => {
+    console.log(symbol);
+    setGameState((lastGameState) => {
+      return {
+        ...lastGameState,
+        usersTimeOver: [...lastGameState.usersTimeOver, symbol],
+        currentUser: getNextUser(
+          lastGameState.currentUser,
+          usersCount,
+          usersTimeOver,
+        ),
       };
     });
   };
@@ -37,5 +59,6 @@ export function useGameState(usersCount: number) {
     nextUser,
     winnerSequence,
     handleCellClick,
+    handleUserTimeOver,
   };
 }

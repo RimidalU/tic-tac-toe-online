@@ -11,8 +11,14 @@ import { Footer } from "../components/footer";
 
 function HomePage() {
   const [usersCount, _] = useState(4);
-  const { cells, currentUser, nextUser, winnerSequence, handleCellClick } =
-    useGameState(usersCount);
+  const {
+    cells,
+    currentUser,
+    nextUser,
+    winnerSequence,
+    handleCellClick,
+    handleUserTimeOver,
+  } = useGameState(usersCount);
 
   return (
     <div className="max-w-7xl mx-auto min-h-screen flex flex-col justify-between">
@@ -23,6 +29,7 @@ function HomePage() {
           usersCount={usersCount}
           currentUser={currentUser}
           isWinner={!!winnerSequence}
+          onUserPlayerOver={handleUserTimeOver}
           className="mt-4"
         />
         <GameField

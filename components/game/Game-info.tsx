@@ -47,11 +47,13 @@ export function GameInfo({
   usersCount,
   currentUser,
   isWinner,
+  onUserPlayerOver,
 }: {
   className: string;
   usersCount: number;
   currentUser: string;
   isWinner: boolean;
+  onUserPlayerOver: (symbol: string) => void;
 }) {
   const playersInGame = players.slice(0, usersCount);
   return (
@@ -66,22 +68,27 @@ export function GameInfo({
           key={player.id}
           userInfo={player}
           isRight={index % 2 === 1}
+          onTimeOver={() => {
+            onUserPlayerOver(player.symbol);
+          }}
           isTimerRunning={currentUser === player.symbol && !isWinner}
         />
       ))}
     </section>
   );
 }
-const initialTimerState = 60;
+const initialTimerState = 6;
 
 function UserInfo({
   userInfo,
   isRight,
   isTimerRunning,
+  onTimeOver,
 }: {
   userInfo: IUser;
   isRight: boolean;
   isTimerRunning: boolean;
+  onTimeOver;
 }) {
   const [secondsPerTarn, setSecondsPerTarn] = useState(initialTimerState);
 
@@ -104,6 +111,14 @@ function UserInfo({
       };
     }
   }, [isTimerRunning]);
+
+  useEffect(() => {
+    if (secondsPerTarn === 0) {
+      console.log("Stop!");
+      onTimeOver();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [secondsPerTarn]);
 
   return (
     <article
