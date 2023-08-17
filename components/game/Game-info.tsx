@@ -114,7 +114,6 @@ function UserInfo({
 
   useEffect(() => {
     if (secondsPerTarn === 0) {
-      console.log("Stop!");
       onTimeOver();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

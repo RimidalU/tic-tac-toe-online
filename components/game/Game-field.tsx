@@ -20,6 +20,7 @@ export function GameField({
   currentUser,
   nextUser,
   winnerSequence,
+  winnerSymbol,
   handleCellClick,
 }: {
   className: string;
@@ -27,6 +28,7 @@ export function GameField({
   currentUser: string;
   nextUser: string;
   winnerSequence: number[];
+  winnerSymbol: string;
   handleCellClick: (index: number) => void;
 }) {
   return (
@@ -36,11 +38,17 @@ export function GameField({
         currentUser={currentUser}
         nextUser={nextUser}
       />
+      {winnerSymbol && (
+        <div className="text-center">
+          <GameSymbol className="w-10 h-10 mx-auto" symbol={winnerSymbol} />
+          is Winner!
+        </div>
+      )}
       <GameGrid>
         {cells.map((cell, index) => {
           return (
             <GameCell
-              disabled={!!winnerSequence}
+              disabled={!!winnerSymbol}
               key={index}
               isWinner={winnerSequence?.includes(index)}
               onClick={() => handleCellClick(index)}

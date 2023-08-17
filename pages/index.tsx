@@ -16,6 +16,7 @@ function HomePage() {
     currentUser,
     nextUser,
     winnerSequence,
+    winnerSymbol,
     handleCellClick,
     handleUserTimeOver,
   } = useGameState(usersCount);
@@ -28,7 +29,7 @@ function HomePage() {
         <GameInfo
           usersCount={usersCount}
           currentUser={currentUser}
-          isWinner={!!winnerSequence}
+          isWinner={!!winnerSymbol}
           onUserPlayerOver={handleUserTimeOver}
           className="mt-4"
         />
@@ -37,6 +38,7 @@ function HomePage() {
           currentUser={currentUser}
           nextUser={nextUser}
           winnerSequence={winnerSequence}
+          winnerSymbol={winnerSymbol}
           handleCellClick={handleCellClick}
           className="mt-4"
         />
