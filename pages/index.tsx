@@ -8,6 +8,7 @@ import {
 } from "../components/game";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
+import { UiModal } from "../components/uikit";
 
 function HomePage() {
   const [usersCount, _] = useState(4);
@@ -33,6 +34,7 @@ function HomePage() {
           onUserPlayerOver={handleUserTimeOver}
           className="mt-4"
         />
+        <UiModal/>
         <GameField
           cells={cells}
           currentUser={currentUser}
