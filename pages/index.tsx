@@ -8,7 +8,7 @@ import {
 } from "../components/game";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
-import { UiModal } from "../components/uikit";
+import { UiButton, UiModal } from "../components/uikit";
 
 function HomePage() {
   const [usersCount, _] = useState(4);
@@ -37,7 +37,14 @@ function HomePage() {
         <UiModal width="md">
           <UiModal.Header>Game Over!</UiModal.Header>
           <UiModal.Body>Body</UiModal.Body>
-          <UiModal.Footer>Footer</UiModal.Footer>
+          <UiModal.Footer>
+            <UiButton size="md" variant="outline">
+              Return
+            </UiButton>
+            <UiButton size="md" variant="primary">
+              New Game
+            </UiButton>
+          </UiModal.Footer>
         </UiModal>
         <GameField
           cells={cells}
