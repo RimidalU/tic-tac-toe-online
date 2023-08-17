@@ -34,7 +34,11 @@ function HomePage() {
           onUserPlayerOver={handleUserTimeOver}
           className="mt-4"
         />
-        <UiModal/>
+        <UiModal width="md">
+          <UiModal.Header>Game Over!</UiModal.Header>
+          <UiModal.Body>Body</UiModal.Body>
+          <UiModal.Footer>Footer</UiModal.Footer>
+        </UiModal>
         <GameField
           cells={cells}
           currentUser={currentUser}

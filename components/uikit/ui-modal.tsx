@@ -1,8 +1,10 @@
 import clsx from "clsx";
+import { ReactNode } from "react";
 
 /**
  *
  * @param {{
+ *   children: JSX.Element | JSX.Element[];
  *   className: string
  *   width: "md" | "full";
  * }} props
@@ -10,9 +12,11 @@ import clsx from "clsx";
  */
 
 export function UiModal({
+  children,
   width = "md",
   className,
 }: {
+  children?: JSX.Element | JSX.Element[];
   width: string;
   className?: string;
 }) {
@@ -21,6 +25,7 @@ export function UiModal({
       <div
         className={clsx(
           "bg-orange-50 rounded-lg min-h-[320px] mx-auto relative",
+          "flex flex-col",
           className,
           {
             md: "max-w-[640px] w-full",
@@ -31,10 +36,47 @@ export function UiModal({
         <button className="text-indigo-600 hover:text-lime-400 transition-colors">
           <CloseCrossIcon className="w-12 h-12 absolute top-0 left-[calc(100%+12px)]" />
         </button>
+        {children}
       </div>
     </div>
   );
 }
+
+UiModal.Header = function UiModalHeader({
+  children,
+  className,
+}: {
+  children?: string;
+  className?: string;
+}) {
+  return (
+    <header className={clsx("p-4 text-2xl", className)}>{children}</header>
+  );
+};
+
+UiModal.Body = function UiModalBody({
+  children,
+  className,
+}: {
+  children?: string;
+  className?: string;
+}) {
+  return <header className={clsx("p-6", className)}>{children}</header>;
+};
+
+UiModal.Footer = function UiModalFooter({
+  children,
+  className,
+}: {
+  children?: string;
+  className?: string;
+}) {
+  return (
+    <footer className={clsx("p-6 flex gap-4 justify-end mt-auto", className)}>
+      {children}
+    </footer>
+  );
+};
 
 function CloseCrossIcon({ className }) {
   return (
