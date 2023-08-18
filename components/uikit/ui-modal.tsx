@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { createPortal } from "react-dom";
 
 /**
  *
@@ -37,7 +38,7 @@ export function UiModal({
     return null;
   }
 
-  return (
+  const modal = (
     <div
       onClick={handleClose}
       className="fixed inset-0 bg-slate-600/60 backdrop-blur-sm py-10 overflow-y-auto"
@@ -64,6 +65,8 @@ export function UiModal({
       </div>
     </div>
   );
+
+  return createPortal(modal, document.getElementById('modals'))
 }
 
 UiModal.Header = function UiModalHeader({

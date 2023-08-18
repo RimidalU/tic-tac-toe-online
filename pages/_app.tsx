@@ -14,6 +14,7 @@ function App({ Component, pageProps }) {
       )}
     >
       <Component {...pageProps} />
+      <div id="modals" />
     </div>
   );
 }
