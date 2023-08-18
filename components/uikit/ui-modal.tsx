@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { ReactNode } from "react";
 
 /**
  *
@@ -7,6 +6,8 @@ import { ReactNode } from "react";
  *   children: JSX.Element | JSX.Element[];
  *   className: string
  *   width: "md" | "full";
+ *   isOpen: boolean,
+ *   onClose: Function
  * }} props
  *
  */
@@ -15,14 +16,34 @@ export function UiModal({
   children,
   width = "md",
   className,
+  isOpen,
+  onClose,
 }: {
   children?: JSX.Element | JSX.Element[];
   width: string;
   className?: string;
+  isOpen: boolean;
+  onClose: () => void;
 }) {
+  const handleClose = (e) => {
+    const isModal = e.target.closest("[data-id='modal']"); // overlay only
+    if (isModal) {
+      return;
+    }
+    onClose();
+  };
+
+  if (!isOpen) {
+    return null;
+  }
+
   return (
-    <div className="fixed inset-0 bg-slate-600/60 backdrop-blur-sm py-10 overflow-y-auto">
+    <div
+      onClick={handleClose}
+      className="fixed inset-0 bg-slate-600/60 backdrop-blur-sm py-10 overflow-y-auto"
+    >
       <div
+        data-id="modal"
         className={clsx(
           "bg-orange-50 rounded-lg min-h-[320px] mx-auto relative",
           "flex flex-col",
@@ -33,7 +54,10 @@ export function UiModal({
           }[width],
         )}
       >
-        <button className="text-indigo-600 hover:text-lime-400 transition-colors">
+        <button
+          onClick={onClose}
+          className="text-indigo-600 hover:text-lime-400 transition-colors"
+        >
           <CloseCrossIcon className="w-12 h-12 absolute top-0 left-[calc(100%+12px)]" />
         </button>
         {children}
