@@ -88,7 +88,7 @@ UiModal.Body = function UiModalBody({
   children?: string | JSX.Element | JSX.Element[];
   className?: string;
 }) {
-  return <header className={clsx("p-6", className)}>{children}</header>;
+  return <div className={clsx("p-6", className)}>{children}</div>;
 };
 
 UiModal.Footer = function UiModalFooter({

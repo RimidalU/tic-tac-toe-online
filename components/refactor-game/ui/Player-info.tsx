@@ -29,8 +29,8 @@ export function PlayerInfo({
     <article
       className={clsx("flex items-center gap-1", isRight && "flex-row-reverse")}
     >
-      <div className="relative">
-        <article className="w-48 flex items-center gap-4">
+      <div className="relative w-48">
+        <article className="flex items-center gap-2">
           <Image src={avatar} width={48} height={48} alt="Avatar" />
           <div className="overflow-hidden">
             <div

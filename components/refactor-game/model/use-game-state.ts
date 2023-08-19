@@ -22,7 +22,7 @@ export function useGameState(usersCount: number) {
   const winnerSequence = checkWinner(cells, boardSize, sequenceSize);
 
   const winnerSymbol =
-    currentUser === nextUser ? currentUser : winnerSequence?.[0];
+    currentUser === nextUser ? currentUser : cells[winnerSequence?.[0]];
 
   const handleCellClick = (index: number) => {
     setGameState((lastGameState) => {
@@ -45,7 +45,6 @@ export function useGameState(usersCount: number) {
   };
 
   const handleUserTimeOver = (symbol: string) => {
-    console.log(symbol);
     setGameState((lastGameState) => {
       return {
         ...lastGameState,
