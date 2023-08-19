@@ -42,7 +42,6 @@ export function useGameState(usersCount: number) {
   };
 
   const handleUserTimeOver = (symbol: string) => {
-    console.log(symbol);
     setGameState((lastGameState) => {
       return {
         ...lastGameState,
