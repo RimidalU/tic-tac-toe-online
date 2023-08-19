@@ -4,6 +4,8 @@ import { BackLink } from "./ui/Back-link";
 import { GameInfo } from "./ui/Game-info";
 import { PlayerInfo } from "./ui/Player-info";
 import { PLAYERS } from "./constants";
+import GameMoveInfo from "./ui/Game-move-info";
+import { GameActions } from "./ui/Game-actions";
 
 export function Game() {
   return (
@@ -25,6 +27,11 @@ export function Game() {
           isTimerRunning={false}
         />
       ))}
+      gameMoveInfo={
+        <GameMoveInfo currentUser={"currentUser"} nextUser={"currentUser"} />
+      }
+      actions={<GameActions />}
+      gameCells={<>gameCells</>}
     />
   );
 }
