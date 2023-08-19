@@ -4,7 +4,7 @@ import { Profile } from "../profile";
 import { UiButton } from "../uikit";
 
 import { ArrowBottomIcon } from "./icons/arrow-bottom-icon";
-import userAvatarSrc from "../game/images/avatar-2.png";
+import userAvatarSrc from "./images/avatar-2.png";
 import logoSrc from "./logo.png";
 
 export function Header() {
