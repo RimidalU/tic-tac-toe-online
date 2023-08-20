@@ -17,6 +17,10 @@ export const MOVE_ORDER = [
   GAME_SYMBOLS.TRIANGLE,
 ];
 
+export const GAME_STATE_ACTIONS = {
+  CELL_CLICK: "cell-click",
+};
+
 export const PLAYERS = [
   {
     id: 1,

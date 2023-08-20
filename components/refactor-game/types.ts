@@ -12,4 +12,5 @@ export type IState = {
   cells: string[];
   usersTimeOver: string[];
   currentUser: string;
+  usersCount: number;
 };

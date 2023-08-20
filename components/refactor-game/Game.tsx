@@ -1,4 +1,7 @@
-import { useGameState } from "./model/use-game-state";
+import { useReducer } from "react";
+
+import { gameStateReducer, initGameState } from "./model/game-state-reducer";
+import { checkWinner, getNextUser } from "../game/model";
 
 import GameOverModal from "./ui/Game-over-modal";
 import { GameActions } from "./ui/Game-actions";
@@ -10,19 +13,27 @@ import { BackLink } from "./ui/Back-link";
 import { GameInfo } from "./ui/Game-info";
 import { GameCell } from "./ui/Game-cell";
 
-import { PLAYERS } from "./constants";
+import { GAME_STATE_ACTIONS, PLAYERS } from "./constants";
 
 const USER_COUNT = 2;
+const boardSize = 19;
+const sequenceSize = 5;
 
 export function Game() {
-  const {
-    cells,
-    winnerSymbol,
-    winnerSequence,
-    currentUser,
-    nextUser,
-    handleCellClick,
-  } = useGameState(USER_COUNT);
+  const [gameState, dispatch] = useReducer(
+    gameStateReducer,
+    { usersCount: USER_COUNT },
+    initGameState,
+  );
+
+  const { cells, currentUser, usersTimeOver, usersCount } = gameState;
+
+  const nextUser = getNextUser(currentUser, usersCount, usersTimeOver);
+
+  const winnerSequence = checkWinner(cells, boardSize, sequenceSize);
+
+  const winnerSymbol =
+    currentUser === nextUser ? currentUser : cells[winnerSequence?.[0]];
 
   const winnerName = PLAYERS.find((player) => player.symbol === winnerSymbol);
 
@@ -59,7 +70,12 @@ export function Game() {
             key={index}
             disabled={!!winnerSymbol}
             isWinner={winnerSequence?.includes(index)}
-            onClick={() => handleCellClick(index)}
+            onClick={() => {
+              dispatch({
+                tape: GAME_STATE_ACTIONS.CELL_CLICK,
+                index,
+              });
+            }}
             cellSymbol={cell}
           />
         ))}
