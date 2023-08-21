@@ -19,6 +19,7 @@ export const MOVE_ORDER = [
 
 export const GAME_STATE_ACTIONS = {
   CELL_CLICK: "cell-click",
+  TICK: "tick",
 };
 
 export const PLAYERS = [

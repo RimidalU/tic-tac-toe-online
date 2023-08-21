@@ -1,7 +1,6 @@
 import { useReducer } from "react";
 
 import { gameStateReducer, initGameState } from "./model/game-state-reducer";
-import { checkWinner, getNextUser } from "../game/model";
 
 import GameOverModal from "./ui/Game-over-modal";
 import { GameActions } from "./ui/Game-actions";
@@ -15,11 +14,14 @@ import { GameCell } from "./ui/Game-cell";
 
 import { GAME_STATE_ACTIONS, PLAYERS } from "./constants";
 import { computePlayerTimer } from "./model/compute-player-timer";
+import { useInterval } from "./lib/timers";
+import { getNextUser } from "./model/get-next-user";
+import { checkWinner } from "./model/check-winner";
 
 const USER_COUNT = 2;
 const boardSize = 19;
 const sequenceSize = 5;
-const DEFAULT_TIMER = 70000;
+const DEFAULT_TIMER = 1000;
 
 export function Game() {
   const [gameState, dispatch] = useReducer(
@@ -32,16 +34,9 @@ export function Game() {
     initGameState,
   );
 
-  const {
-    cells,
-    currentUser,
-    usersTimeOver,
-    usersCount,
-    timers,
-    currentGameStart,
-  } = gameState;
+  const { cells, currentUser, timers, currentGameStart } = gameState;
 
-  const nextUser = getNextUser(currentUser, usersCount, usersTimeOver);
+  const nextUser = getNextUser(gameState);
 
   const winnerSequence = checkWinner(cells, boardSize, sequenceSize);
 
@@ -49,6 +44,13 @@ export function Game() {
     currentUser === nextUser ? currentUser : cells[winnerSequence?.[0]];
 
   const winnerName = PLAYERS.find((player) => player.symbol === winnerSymbol);
+
+  useInterval(1000, !winnerName, () => {
+    dispatch({
+      type: GAME_STATE_ACTIONS.TICK,
+      dateNow: Date.now(),
+    });
+  });
 
   return (
     <>
@@ -97,7 +99,6 @@ export function Game() {
         ))}
       />
       <GameOverModal
-        handleClose={() => {}}
         players={PLAYERS.slice(0, USER_COUNT).map((player, index) => {
           const { timerStartAt, timer } = computePlayerTimer(
             gameState,

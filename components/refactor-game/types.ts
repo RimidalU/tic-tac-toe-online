@@ -18,8 +18,14 @@ export type IState = {
   timers: {};
 };
 
-export type IAction = {
-  type: typeof GAME_STATE_ACTIONS.CELL_CLICK;
-  index: number;
-  dateNow: number;
-};
+export type IAction =
+  | {
+      type: typeof GAME_STATE_ACTIONS.CELL_CLICK;
+      index: number;
+      dateNow: number;
+    }
+  | {
+      type: typeof GAME_STATE_ACTIONS.TICK;
+      index?: never;
+      dateNow: number;
+    };

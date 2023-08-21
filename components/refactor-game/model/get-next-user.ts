@@ -1,11 +1,11 @@
 import { MOVE_ORDER } from "../constants";
 import { IState } from "../types";
 
-export function getNextUser(state: IState) {
-  const { currentUser, usersCount, usersTimeOver } = state;
+export function getNextUser(gameState: IState) {
+  const { currentUser, usersCount, timers } = gameState;
 
   const moveOrdersInGame = MOVE_ORDER.slice(0, usersCount).filter(
-    (symbol) => !usersTimeOver.includes(symbol),
+    (symbol) => timers[symbol] > 0,
   );
 
   const nextUserIndex = moveOrdersInGame.indexOf(currentUser) + 1;

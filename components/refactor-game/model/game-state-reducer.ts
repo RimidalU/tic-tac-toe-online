@@ -37,6 +37,20 @@ export const gameStateReducer = (state: IState, action: IAction) => {
         timers: updateTimers(state, dateNow),
       };
     }
+    case GAME_STATE_ACTIONS.TICK: {
+      const { dateNow } = action;
+
+      if (!isTimeOver(state, dateNow)) {
+        return state;
+      }
+
+      return {
+        ...state,
+        currentUser: getNextUser(state),
+        currentGameStart: dateNow,
+        timers: updateTimers(state, dateNow),
+      };
+    }
     default: {
       return state;
     }
@@ -57,4 +71,9 @@ function updateTimers(gameState: IState, dateNow: number) {
     ...gameState.timers,
     [gameState.currentUser]: timer - dif,
   };
+}
+
+function isTimeOver(gameState: IState, dateNow: number) {
+  const timer = updateTimers(gameState, dateNow)[gameState.currentUser]
+  return timer <= 0 ; 
 }
