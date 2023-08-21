@@ -2,15 +2,21 @@ import { UiButton, UiModal } from "../../uikit";
 
 export default function GameOverModal({
   winnerName,
-  handleClose,
   players,
 }: {
   winnerName?: string;
-  handleClose: () => void;
   players: JSX.Element | JSX.Element[];
 }) {
+  const handleClose = () => {
+console.log("closed!");
+
+  }
   return (
-    <UiModal width="md" isOpen={!!winnerName} onClose={handleClose}>
+    <UiModal
+      width="md"
+      isOpen={!!winnerName}
+      onClose={() => handleClose()}
+    >
       <UiModal.Header>Game Over!</UiModal.Header>
       <UiModal.Body>
         <div className="text-2xl text-slate-600">
