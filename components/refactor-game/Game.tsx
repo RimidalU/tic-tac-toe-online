@@ -14,6 +14,7 @@ import { GameInfo } from "./ui/Game-info";
 import { GameCell } from "./ui/Game-cell";
 
 import { GAME_STATE_ACTIONS, PLAYERS } from "./constants";
+import { computePlayerTimer } from "./model/compute-player-timer";
 
 const USER_COUNT = 2;
 const boardSize = 19;
@@ -48,8 +49,6 @@ export function Game() {
     currentUser === nextUser ? currentUser : cells[winnerSequence?.[0]];
 
   const winnerName = PLAYERS.find((player) => player.symbol === winnerSymbol);
-
-  console.log(currentGameStart);
 
   return (
     <>
@@ -99,20 +98,25 @@ export function Game() {
       />
       <GameOverModal
         handleClose={() => {}}
-        players={PLAYERS.slice(0, USER_COUNT).map((player, index) => (
-          <PlayerInfo
-            key={player.id}
-            avatar={player.avatar}
-            name={player.name}
-            symbol={player.symbol}
-            rating={player.rating}
-            timerStartAt={
-              player.symbol === currentUser ? currentGameStart : undefined
-            }
-            timer={timers[player.symbol]}
-            isRight={index % 2 === 1}
-          />
-        ))}
+        players={PLAYERS.slice(0, USER_COUNT).map((player, index) => {
+          const { timerStartAt, timer } = computePlayerTimer(
+            gameState,
+            player.symbol,
+          );
+
+          return (
+            <PlayerInfo
+              key={player.id}
+              avatar={player.avatar}
+              name={player.name}
+              symbol={player.symbol}
+              rating={player.rating}
+              timerStartAt={timerStartAt}
+              timer={timer}
+              isRight={index % 2 === 1}
+            />
+          );
+        })}
         winnerName={winnerName?.name}
       />
     </>
