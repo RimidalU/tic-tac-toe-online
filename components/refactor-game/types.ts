@@ -13,7 +13,9 @@ export type IState = {
   cells: string[];
   usersTimeOver: string[];
   currentUser: string;
+  currentGameStart:Date
   usersCount: number;
+  timers: {};
 };
 
 export type IAction = {

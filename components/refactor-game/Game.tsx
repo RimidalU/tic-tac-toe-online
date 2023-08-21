@@ -18,15 +18,16 @@ import { GAME_STATE_ACTIONS, PLAYERS } from "./constants";
 const USER_COUNT = 2;
 const boardSize = 19;
 const sequenceSize = 5;
+const DEFAULT_TIMER = 70000;
 
 export function Game() {
   const [gameState, dispatch] = useReducer(
     gameStateReducer,
-    { usersCount: USER_COUNT },
+    { usersCount: USER_COUNT, defaultTimer: DEFAULT_TIMER , currentGameStart: Date.now()},
     initGameState,
   );
 
-  const { cells, currentUser, usersTimeOver, usersCount } = gameState;
+  const { cells, currentUser, usersTimeOver, usersCount, timers, currentGameStart } = gameState;
 
   const nextUser = getNextUser(currentUser, usersCount, usersTimeOver);
 
@@ -36,6 +37,8 @@ export function Game() {
     currentUser === nextUser ? currentUser : cells[winnerSequence?.[0]];
 
   const winnerName = PLAYERS.find((player) => player.symbol === winnerSymbol);
+
+  console.log(currentGameStart);
 
   return (
     <>
@@ -56,7 +59,7 @@ export function Game() {
             name={player.name}
             symbol={player.symbol}
             rating={player.rating}
-            seconds={60}
+            timer={timers[player.symbol]}
             isRight={index % 2 === 1}
             isTimerRunning={false}
           />
@@ -89,7 +92,7 @@ export function Game() {
             name={player.name}
             symbol={player.symbol}
             rating={player.rating}
-            seconds={60}
+            timer={timers[player.symbol]}
             isRight={index % 2 === 1}
             isTimerRunning={false}
           />

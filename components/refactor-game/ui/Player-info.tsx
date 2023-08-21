@@ -8,7 +8,7 @@ export function PlayerInfo({
   rating = 0,
   name,
   symbol,
-  seconds = 0,
+  timer = 0,
   isRight,
   isTimerRunning,
 }: {
@@ -16,10 +16,12 @@ export function PlayerInfo({
   rating: number;
   name: string;
   symbol: string;
-  seconds: number;
+  timer: number;
   isRight: boolean;
   isTimerRunning: boolean;
 }) {
+  const seconds = Math.ceil(timer / 1000);
+
   const minutesInTimer = String(Math.floor(seconds / 60)).padStart(2, "0");
 
   const secondsInTimer = String(seconds % 60).padStart(2, "0");

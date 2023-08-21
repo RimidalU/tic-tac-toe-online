@@ -1,12 +1,19 @@
-import { GAME_STATE_ACTIONS, GAME_SYMBOLS } from "../constants";
+import { GAME_STATE_ACTIONS, GAME_SYMBOLS, MOVE_ORDER } from "../constants";
 import { getNextUser } from "./get-next-user";
 import { IAction, IState } from "../types";
 
-export const initGameState = ({ usersCount }) => ({
+export const initGameState = ({ usersCount, defaultTimer, currentGameStart }): IState => ({
   cells: new Array(19 * 19).fill(null),
   usersTimeOver: [],
   currentUser: GAME_SYMBOLS.CROSS,
   usersCount,
+  currentGameStart,
+  timers: MOVE_ORDER.reduce((timers, symbol, index) => {
+    if (index < usersCount) {
+      timers[symbol] = defaultTimer;
+    }
+    return timers;
+  }, {}),
 });
 
 export const gameStateReducer = (state: IState, action: IAction) => {
