@@ -1,5 +1,6 @@
 import { GAME_STATE_ACTIONS, GAME_SYMBOLS } from "../constants";
 import { getNextUser } from "./get-next-user";
+import { IAction, IState } from "../types";
 
 export const initGameState = ({ usersCount }) => ({
   cells: new Array(19 * 19).fill(null),
@@ -8,8 +9,8 @@ export const initGameState = ({ usersCount }) => ({
   usersCount,
 });
 
-export const gameStateReducer = (state, action) => {
-  switch (action.tape) {
+export const gameStateReducer = (state: IState, action: IAction) => {
+  switch (action.type) {
     case GAME_STATE_ACTIONS.CELL_CLICK: {
       const { index } = action;
 
@@ -19,11 +20,7 @@ export const gameStateReducer = (state, action) => {
 
       return {
         ...state,
-        currentUser: getNextUser(
-          state.currentUser,
-          state.usersCount,
-          state.usersTimeOver,
-        ),
+        currentUser: getNextUser(state),
         cells: state.cells.map((cell, i) => {
           return i === index ? state.currentUser : cell;
         }),

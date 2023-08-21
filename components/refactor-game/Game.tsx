@@ -72,7 +72,7 @@ export function Game() {
             isWinner={winnerSequence?.includes(index)}
             onClick={() => {
               dispatch({
-                tape: GAME_STATE_ACTIONS.CELL_CLICK,
+                type: GAME_STATE_ACTIONS.CELL_CLICK,
                 index,
               });
             }}
