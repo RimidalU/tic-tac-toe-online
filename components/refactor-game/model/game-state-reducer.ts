@@ -33,9 +33,8 @@ export const gameStateReducer = (state: IState, action: IAction) => {
         ...state,
         currentUser: getNextUser(state),
         currentGameStart: dateNow,
-        cells: state.cells.map((cell, i) => {
-          return i === index ? state.currentUser : cell;
-        }),
+        cells: updateCells(state, index),
+        timers: updateTimers(state, dateNow),
       };
     }
     default: {
@@ -43,3 +42,19 @@ export const gameStateReducer = (state: IState, action: IAction) => {
     }
   }
 };
+
+function updateCells(gameState: IState, index: number) {
+  return gameState.cells.map((cell, i) => {
+    return i === index ? gameState.currentUser : cell;
+  });
+}
+
+function updateTimers(gameState: IState, dateNow: number) {
+  const dif = dateNow - gameState.currentGameStart;
+  const timer = gameState.timers[gameState.currentUser];
+
+  return {
+    ...gameState.timers,
+    [gameState.currentUser]: timer - dif,
+  };
+}
