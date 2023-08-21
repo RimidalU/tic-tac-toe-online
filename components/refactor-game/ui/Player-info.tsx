@@ -2,6 +2,7 @@ import Image, { StaticImageData } from "next/image";
 import clsx from "clsx";
 
 import { GameSymbol } from "./Game-symbol";
+import { useNow } from "../lib/timers";
 
 export function PlayerInfo({
   avatar,
@@ -20,7 +21,14 @@ export function PlayerInfo({
   timer: number;
   isRight: boolean;
 }) {
-  const seconds = Math.ceil(timer / 1000);
+  const dateNow = useNow(1000, !!timerStartAt);
+
+  const milliseconds = Math.max(
+    dateNow ? timer - (dateNow - timerStartAt) : timer,
+    0,
+  );
+
+  const seconds = Math.ceil(milliseconds / 1000);
 
   const minutesInTimer = String(Math.floor(seconds / 60)).padStart(2, "0");
 
