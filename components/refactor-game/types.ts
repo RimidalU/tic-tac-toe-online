@@ -13,7 +13,7 @@ export type IState = {
   cells: string[];
   usersTimeOver: string[];
   currentUser: string;
-  currentGameStart:Date
+  currentGameStart: number;
   usersCount: number;
   timers: {};
 };
@@ -21,4 +21,5 @@ export type IState = {
 export type IAction = {
   type: typeof GAME_STATE_ACTIONS.CELL_CLICK;
   index: number;
+  dateNow: number;
 };

@@ -8,17 +8,17 @@ export function PlayerInfo({
   rating = 0,
   name,
   symbol,
+  timerStartAt,
   timer = 0,
   isRight,
-  isTimerRunning,
 }: {
   avatar: StaticImageData;
   rating: number;
   name: string;
   symbol: string;
+  timerStartAt: number;
   timer: number;
   isRight: boolean;
-  isTimerRunning: boolean;
 }) {
   const seconds = Math.ceil(timer / 1000);
 
@@ -53,7 +53,7 @@ export function PlayerInfo({
         className={clsx(
           "font-normal text-3xl w-[85px]",
           isDanger ? "text-red-500" : "text-stone-600",
-          isTimerRunning ? "opacity-100" : "opacity-40",
+          timerStartAt ? "opacity-100" : "opacity-40",
         )}
       >
         {minutesInTimer}:{secondsInTimer}

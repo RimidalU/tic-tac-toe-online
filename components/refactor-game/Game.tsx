@@ -23,11 +23,22 @@ const DEFAULT_TIMER = 70000;
 export function Game() {
   const [gameState, dispatch] = useReducer(
     gameStateReducer,
-    { usersCount: USER_COUNT, defaultTimer: DEFAULT_TIMER , currentGameStart: Date.now()},
+    {
+      usersCount: USER_COUNT,
+      defaultTimer: DEFAULT_TIMER,
+      currentGameStart: Date.now(),
+    },
     initGameState,
   );
 
-  const { cells, currentUser, usersTimeOver, usersCount, timers, currentGameStart } = gameState;
+  const {
+    cells,
+    currentUser,
+    usersTimeOver,
+    usersCount,
+    timers,
+    currentGameStart,
+  } = gameState;
 
   const nextUser = getNextUser(currentUser, usersCount, usersTimeOver);
 
@@ -59,9 +70,11 @@ export function Game() {
             name={player.name}
             symbol={player.symbol}
             rating={player.rating}
+            timerStartAt={
+              player.symbol === currentUser ? currentGameStart : undefined
+            }
             timer={timers[player.symbol]}
             isRight={index % 2 === 1}
-            isTimerRunning={false}
           />
         ))}
         gameMoveInfo={
@@ -77,6 +90,7 @@ export function Game() {
               dispatch({
                 type: GAME_STATE_ACTIONS.CELL_CLICK,
                 index,
+                dateNow: Date.now(),
               });
             }}
             cellSymbol={cell}
@@ -92,9 +106,11 @@ export function Game() {
             name={player.name}
             symbol={player.symbol}
             rating={player.rating}
+            timerStartAt={
+              player.symbol === currentUser ? currentGameStart : undefined
+            }
             timer={timers[player.symbol]}
             isRight={index % 2 === 1}
-            isTimerRunning={false}
           />
         ))}
         winnerName={winnerName?.name}
