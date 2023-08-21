@@ -10,17 +10,18 @@ export function PlayerInfo({
   name,
   symbol,
   timerStartAt,
-  timer = 0,
+  timer,
   isRight,
 }: {
   avatar: StaticImageData;
   rating: number;
   name: string;
   symbol: string;
-  timerStartAt: number;
+  timerStartAt?: number;
   timer: number;
   isRight: boolean;
 }) {
+  
   const dateNow = useNow(1000, !!timerStartAt);
 
   const milliseconds = Math.max(
@@ -61,7 +62,7 @@ export function PlayerInfo({
         className={clsx(
           "font-normal text-3xl w-[85px]",
           isDanger ? "text-red-500" : "text-stone-600",
-          timerStartAt ? "opacity-100" : "opacity-40",
+          !!timerStartAt ? "opacity-100" : "opacity-40",
         )}
       >
         {minutesInTimer}:{secondsInTimer}

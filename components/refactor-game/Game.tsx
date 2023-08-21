@@ -100,10 +100,7 @@ export function Game() {
       />
       <GameOverModal
         players={PLAYERS.slice(0, USER_COUNT).map((player, index) => {
-          const { timerStartAt, timer } = computePlayerTimer(
-            gameState,
-            player.symbol,
-          );
+          const { timer } = computePlayerTimer(gameState, player.symbol);
 
           return (
             <PlayerInfo
@@ -112,7 +109,6 @@ export function Game() {
               name={player.name}
               symbol={player.symbol}
               rating={player.rating}
-              timerStartAt={timerStartAt}
               timer={timer}
               isRight={index % 2 === 1}
             />
