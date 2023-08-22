@@ -1,4 +1,4 @@
-import { useMemo, useReducer } from "react";
+import { useCallback, useMemo, useReducer } from "react";
 
 import { gameStateReducer, initGameState } from "./model/game-state-reducer";
 
@@ -48,12 +48,16 @@ export function Game() {
 
   const winnerName = PLAYERS.find((player) => player.symbol === winnerSymbol);
 
-  useInterval(1000, !winnerName, () => {
-    dispatch({
-      type: GAME_STATE_ACTIONS.TICK,
-      dateNow: Date.now(),
-    });
-  });
+  useInterval(
+    1000,
+    !winnerName,
+    useCallback(() => {
+      dispatch({
+        type: GAME_STATE_ACTIONS.TICK,
+        dateNow: Date.now(),
+      });
+    }, []),
+  );
 
   return (
     <>
