@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useMemo, useReducer } from "react";
 
 import { gameStateReducer, initGameState } from "./model/game-state-reducer";
 
@@ -38,7 +38,10 @@ export function Game() {
 
   const nextUser = getNextUser(gameState);
 
-  const winnerSequence = checkWinner(cells, boardSize, sequenceSize);
+  const winnerSequence = useMemo(
+    () => checkWinner(cells, boardSize, sequenceSize),
+    [cells],
+  );
 
   const winnerSymbol =
     currentUser === nextUser ? currentUser : cells[winnerSequence?.[0]];
