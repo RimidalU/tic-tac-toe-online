@@ -21,7 +21,7 @@ import { checkWinner } from "./model/check-winner";
 const USER_COUNT = 2;
 const boardSize = 19;
 const sequenceSize = 5;
-const DEFAULT_TIMER = 1000;
+const DEFAULT_TIMER = 60000;
 
 export function Game() {
   const [gameState, dispatch] = useReducer(
@@ -59,6 +59,14 @@ export function Game() {
     }, []),
   );
 
+  const handleCellClick = useCallback((index) => {
+    dispatch({
+      type: GAME_STATE_ACTIONS.CELL_CLICK,
+      index,
+      dateNow: Date.now(),
+    });
+  }, []);
+
   return (
     <>
       <GameLayout
@@ -92,15 +100,10 @@ export function Game() {
         gameCells={cells.map((cell, index) => (
           <GameCell
             key={index}
+            index={index}
             disabled={!!winnerSymbol}
             isWinner={winnerSequence?.includes(index)}
-            onClick={() => {
-              dispatch({
-                type: GAME_STATE_ACTIONS.CELL_CLICK,
-                index,
-                dateNow: Date.now(),
-              });
-            }}
+            onClick={handleCellClick}
             cellSymbol={cell}
           />
         ))}
