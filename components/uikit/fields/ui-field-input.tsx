@@ -7,7 +7,7 @@ import clsx from "clsx";
  *   className?: string;
  *   required?: boolean;
  *   errorText?: string;
- *   htmlId?: string;
+ *   htmlId: string;
  * } & import('react').InputHTMLAttributes<HTMLInputElement>} props
  *
  */
@@ -21,7 +21,7 @@ export function UiFieldInput({
 }: {
   required?: boolean;
   errorText?: string;
-  htmlId?: string;
+  htmlId: string;
   className?: string;
 } & InputHTMLAttributes<HTMLInputElement>) {
   return (
