@@ -1,5 +1,6 @@
-import { UiButton, UiModal } from "../../uikit";
-import { UiInput } from "../../uikit/fields/ui-input";
+import { UiButton, UiModal, UiInput, UiSelect } from "../../uikit";
+
+import { BOARD_SIZES } from "../constants";
 
 export default function NewGameModal({ isOpen }: { isOpen: boolean }) {
   const handleClose = () => {
@@ -10,7 +11,7 @@ export default function NewGameModal({ isOpen }: { isOpen: boolean }) {
       <UiModal.Header>New Game</UiModal.Header>
       <UiModal.Body>
         <div className="text-2xl text-slate-600">Game settings:</div>
-        <form className="bg-orange-50 shadow-lg px-8 py-4 grid grid-cols-2 gap-3 justify-between mt-4">
+        <form className="bg-orange-50 shadow-lg px-8 py-4 flex flex-col gap-6 justify-between mt-4">
           <UiInput
             label="Game turn time"
             helperText="Insert game time in seconds"
@@ -19,6 +20,12 @@ export default function NewGameModal({ isOpen }: { isOpen: boolean }) {
             defaultValue={60}
             type="number"
             min="0"
+          />
+          <UiSelect
+            label="Board size"
+            helperText="Choose board size"
+            options={BOARD_SIZES}
+            required
           />
         </form>
       </UiModal.Body>
