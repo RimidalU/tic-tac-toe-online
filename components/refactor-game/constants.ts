@@ -54,8 +54,6 @@ export const PLAYERS = [
   },
 ];
 
-export type IBoard_sizes = typeof BOARD_SIZES;
-
 export const BOARD_SIZES = [
   {
     id: 1,

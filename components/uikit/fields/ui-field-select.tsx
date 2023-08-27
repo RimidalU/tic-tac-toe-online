@@ -1,7 +1,7 @@
 import { SelectHTMLAttributes } from "react";
 import clsx from "clsx";
 
-import { IBoard_sizes } from "../../refactor-game/constants";
+import { IOptions } from "../../refactor-game/types";
 
 /**
  *
@@ -10,7 +10,7 @@ import { IBoard_sizes } from "../../refactor-game/constants";
  *   htmlId: string;
  *   errorText?: string;
  *   className?: string;
- *   options: IBoard_sizes;
+ *   options: IOptions;
  * } & import('react').SelectHTMLAttributes<HTMLSelectElement>} props
  *
  */
@@ -26,7 +26,7 @@ export function UiFieldSelect({
   required?: boolean;
   htmlId: string;
   errorText?: string;
-  options: IBoard_sizes;
+  options: IOptions;
   className?: string;
 } & SelectHTMLAttributes<HTMLSelectElement>) {
   return (

@@ -1,9 +1,9 @@
 import { SelectHTMLAttributes } from "react";
 
 import { UiFieldMessage } from "./ui-field-message";
-import { UiFieldLabel } from "./ui-field-label";
+import { IOptions } from "../../refactor-game/types";
 import { UiFieldSelect } from "./ui-field-select";
-import { IBoard_sizes } from "../../refactor-game/constants";
+import { UiFieldLabel } from "./ui-field-label";
 
 /**
  *
@@ -13,7 +13,7 @@ import { IBoard_sizes } from "../../refactor-game/constants";
  *   required?: boolean;
  *   helperText?: string;
  *   errorText?: string;
- *   options: options;
+ *   options: IOptions;
  *   className?: string;
  * } & import('react').SelectHTMLAttributes<HTMLSelectElement>} props
  *
@@ -32,7 +32,7 @@ export function UiSelect({
   required?: boolean;
   helperText?: string;
   errorText?: string;
-  options: IBoard_sizes;
+  options: IOptions;
   className?: string;
 } & SelectHTMLAttributes<HTMLSelectElement>) {
   const htmlId = label?.replace(/\s/g, "-").toLowerCase() || "";

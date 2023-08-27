@@ -29,3 +29,5 @@ export type IAction =
       index?: never;
       dateNow: number;
     };
+
+export type IOptions = { id: number; value: string }[];
