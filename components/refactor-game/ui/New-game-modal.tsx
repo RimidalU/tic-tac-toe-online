@@ -1,6 +1,6 @@
 import { UiButton, UiModal, UiInput, UiSelect } from "../../uikit";
 
-import { BOARD_SIZES } from "../constants";
+import { BOARD_SIZES, USERS_NUMBER } from "../constants";
 
 export default function NewGameModal({ isOpen }: { isOpen: boolean }) {
   const handleClose = () => {
@@ -25,6 +25,12 @@ export default function NewGameModal({ isOpen }: { isOpen: boolean }) {
             label="Board size"
             helperText="Choose board size"
             options={BOARD_SIZES}
+            required
+          />
+          <UiSelect
+            label="Users number"
+            helperText="Choose users number"
+            options={USERS_NUMBER}
             required
           />
         </form>

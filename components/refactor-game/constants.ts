@@ -72,3 +72,9 @@ export const BOARD_SIZES = [
     value: "19x19",
   },
 ];
+
+export const USERS_NUMBER = [
+  { id: 1, value: "2" },
+  { id: 2, value: "3" },
+  { id: 3, value: "4" },
+];
