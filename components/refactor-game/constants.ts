@@ -1,3 +1,4 @@
+import { type } from "os";
 import Avatar1Icon from "./ui/images/avatar-1.png";
 import Avatar2Icon from "./ui/images/avatar-2.png";
 import Avatar3Icon from "./ui/images/avatar-3.png";
@@ -50,5 +51,26 @@ export const PLAYERS = [
     rating: 273,
     avatar: Avatar4Icon,
     symbol: GAME_SYMBOLS.TRIANGLE,
+  },
+];
+
+export type IBoard_sizes = typeof BOARD_SIZES;
+
+export const BOARD_SIZES = [
+  {
+    id: 1,
+    value: "3x3",
+  },
+  {
+    id: 2,
+    value: "9x9",
+  },
+  {
+    id: 3,
+    value: "15x15",
+  },
+  {
+    id: 4,
+    value: "19x19",
   },
 ];
