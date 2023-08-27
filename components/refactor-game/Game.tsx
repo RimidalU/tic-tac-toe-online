@@ -1,11 +1,16 @@
 import { useCallback, useMemo, useReducer } from "react";
 
 import { gameStateReducer, initGameState } from "./model/game-state-reducer";
+import { computePlayerTimer } from "./model/compute-player-timer";
+import { getNextUser } from "./model/get-next-user";
+import { checkWinner } from "./model/check-winner";
+import { useInterval } from "./lib/timers";
 
 import GameOverModal from "./ui/Game-over-modal";
 import { GameActions } from "./ui/Game-actions";
-import { GameLayout } from "./ui/Game-layout";
+import NewGameModal from "./ui/New-game-modal";
 import GameMoveInfo from "./ui/Game-move-info";
+import { GameLayout } from "./ui/Game-layout";
 import { PlayerInfo } from "./ui/Player-info";
 import { AppTitle } from "./ui/App-title";
 import { BackLink } from "./ui/Back-link";
@@ -13,10 +18,6 @@ import { GameInfo } from "./ui/Game-info";
 import { GameCell } from "./ui/Game-cell";
 
 import { GAME_STATE_ACTIONS, PLAYERS } from "./constants";
-import { computePlayerTimer } from "./model/compute-player-timer";
-import { useInterval } from "./lib/timers";
-import { getNextUser } from "./model/get-next-user";
-import { checkWinner } from "./model/check-winner";
 
 const USER_COUNT = 2;
 const boardSize = 19;
@@ -126,6 +127,7 @@ export function Game() {
         })}
         winnerName={winnerName?.name}
       />
+      <NewGameModal isOpen={!!winnerName?.name} />
     </>
   );
 }
